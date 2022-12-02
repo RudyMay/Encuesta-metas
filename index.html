@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Title</title>
+    <link rel="stylesheet" href="encuesta-metas.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&family=Poppins&display=swap" rel="stylesheet">
+
+    <script>
+        function IrSeccion2() {
+            document.getElementById('section2').scrollIntoView()
+        }
+
+        function IrSeccion3() {
+
+            if (document.getElementById('pregunta1').value !=="") {
+                document.getElementById('section3').scrollIntoView()
+            } else {
+                alert("Contesta la pregunta antes de continuar")
+            }
+        }
+
+
+    </script>
+
+</head>
+<body>
+
+
+<form action="https://script.google.com/macros/s/AKfycbyKV0UyAE4MqUKYY9I-_x5iGV9dRSQFuh7iBYCweTKXwazd38GJ05PtaLoCjsE9RCBr/exec" method="Post" id="encuesta">
+    <div class="contenedor">
+        <section id="section1">
+            <img src="https://misionadmision-assets.s3.amazonaws.com/img/website/logo-misionadmision.png"/>
+            <br>
+            <h2 style="color: white; text-align: center">
+                <strong>¡Hola!</strong>
+            </h2>
+            <br>
+            <h3 style="color: white;text-align: center">Responde las siguientes preguntas que vendrán a continuacion</h3>
+            <br>
+            <h4 style="color: white;">Respondelas de la manera mas sincera posible </h4>
+            <img class="figura"
+                 src="https://misionadmision-informacion.s3.us-west-2.amazonaws.com/backgrounds/ilustraciones/ilustracion5.png"
+                 width="600px" id="figura1"/>
+            <a class=" btn btn-primary btn-lg boton"
+               href="javascript:IrSeccion2()">¡Vamos!</a>
+        </section>
+
+
+
+
+
+
+            <section id="section2">
+                <br>
+                <br>
+                <img src="https://misionadmision-assets.s3.amazonaws.com/img/website/logo-misionadmision.png" id="logoMa4"/>
+                <br>
+                <h4>¿Cuál consideras que es el motivo por el cual no estamos llegando a las metas en los meses anteriores?</h4>
+                <br>
+                <h4>Puedes escribir varias consideraciones en la misma respuesta, no te contengas</h4>
+
+                <textarea name="Consideraciones" form="encuesta" id="pregunta1" placeholder="Escribe tu respuesta" required="true"></textarea>
+                <br>
+
+                <a class=" btn btn-primary btn-lg boton"
+                   href="javascript:IrSeccion3()">Siguiente</a>
+
+            </section>
+
+            <section id="section3">
+                <h4>¿Qué acciones propones para lograr llegar a las metas?</h4>
+                <br>
+                <h4>Puedes escribir varias acciones en la misma respuesta, escribe todo lo que consideres necesario</h4>
+                <textarea name="Acciones" form="encuesta" placeholder="Escribe tu respuesta" required="true"></textarea>
+                <br>
+                <button type="submit" class="btn btn-primary" id="enviarbtn" name="enviar">Terminar encuesta</button>
+            </section>
+
+
+
+
+    </div>
+</form>
+
+
+<script>
+    window.addEventListener("load", function() {
+        const form = document.getElementById('encuesta');
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            document.getElementById('enviarbtn').disabled=true
+            document.getElementById('enviarbtn').textContent="Enviando respuestas..."
+            const data = new FormData(form);
+            const action = e.target.action;
+            fetch(action, {
+                method: 'POST',
+                body: data,
+            })
+                .then(() => {
+
+                    window.location.replace('https://www.misionadmision.com/gracias-encuesta');
+                })
+        });
+    });
+
+</script>
+</body>
+</html>
